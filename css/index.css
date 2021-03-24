@@ -1,0 +1,12 @@
+/* Header */
+.space-canvas {
+    background: url("../assets/img/stars.png") center center/cover;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+}
+.space-canvas {
+    background-color: #212529;
+}
