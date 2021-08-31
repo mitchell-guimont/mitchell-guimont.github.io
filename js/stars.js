@@ -14,7 +14,7 @@ function generateStars() {
   var angle = -(window.innerWidth * 0.5);
   var count = window.innerWidth * 0.05;
   if (count > 150) count = 150;
-  var line = new Line(0, angle).to(space.size.x, 0);
+  var line = new Line(0, angle).to(-(space.size.x * 5), space.size.x);
   var mouse = center.clone();
 
   var r = Math.min(space.size.x, space.size.y) * 1;
@@ -32,7 +32,7 @@ function generateStars() {
         // Rotate the points slowly
         var pt = pts[i];
 
-        pt.rotate2D( Const.one_degree / 40, center);
+        pt.rotate2D( Const.one_degree / 30, center);
         form.stroke( false ).fill( colors[i % 5] ).point(pt, 1);
 
         // Get line from pt to the mouse line
@@ -67,13 +67,17 @@ function generateStars() {
   space.play();
 }
 
-generateStars();
-
-$(window).resize(function(){
-  if (space) {
-    space.removeAll();
-  }
-
-  $('canvas').remove();
+// The performance for ptsjs is very slow on Firefox
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+if (!isFirefox) {
   generateStars();
-});
+  
+  $(window).resize(function(){
+    if (space) {
+      space.removeAll();
+    }
+  
+    $('canvas').remove();
+    generateStars();
+  });
+}
